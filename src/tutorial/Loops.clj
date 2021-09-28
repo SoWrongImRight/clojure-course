@@ -25,3 +25,11 @@
     (do (println @x)
         (swap! x inc))))
 (WhileDo 10)
+
+(defn DoSeq
+  [seq]
+  (println "\nDoSeq:")
+  (doseq [x seq]
+    (println (inc x)))
+  )
+(DoSeq [1 2 3 4 5])

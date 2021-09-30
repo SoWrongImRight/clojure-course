@@ -1,0 +1,32 @@
+(ns tutorial.Dealership)
+
+(defn isCodeValid
+  [code]
+  (defstruct coupon :Name :Discount)
+  (def validCoupon (struct coupon "20Percent" 0.8))
+  (if (= (:Name validCoupon) code)
+    true
+    false))
+
+(defn getCarPrices
+  [budget code]
+  (def cars {"bmw" 60000, "ferrari" 100000, "fiat" 20000})
+  (if (isCodeValid code)
+    (do
+      (println "The code is valid.")
+      (def discount ( :Discount validCoupon))
+      (doseq [car cars]
+        (def carType (first car))
+        (def price (last car))
+        (def priceDiscount ( * price discount))
+        (if (<= priceDiscount budget)
+          (println "The" carType "cost" priceDiscount))))
+    (do
+      (println "The code is not valid.")
+      (doseq [car cars]
+        (def carType (first car))
+        (def price (last car))
+        (if (<= price budget)
+          (println "The" carType "cost" price)))))
+  )
+(getCarPrices 50000 "2Percent")
